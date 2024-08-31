@@ -63,6 +63,19 @@ fn chain_of_responsibility_success_test() {
       )
     );
 
+  // We can test both chaining lists as well as multiple handlers here,
+  // so we do both
+
+  let mut first_list :ChainOfResponsibilityList<ObjectToInitialize> =
+    ChainOfResponsibilityList::new();
+
+  first_list.add_handler(
+    age_handler
+  );
+  first_list.add_handler(
+    address_handler
+  );
+
   // Create our handler list
 
   let mut handler_list :ChainOfResponsibilityList<ObjectToInitialize> =
@@ -73,11 +86,9 @@ fn chain_of_responsibility_success_test() {
   handler_list.add_handler(
     name_handler
   );
-  handler_list.add_handler(
-    age_handler
-  );
-  handler_list.add_handler(
-    address_handler
+  // Add and consume our first list that we made with the address handle
+  handler_list.add_list(
+    first_list
   );
 
   // Execute our handlers on our mutable object by executing the
