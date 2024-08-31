@@ -1,4 +1,5 @@
 use std::collections::LinkedList;
+use std::error::Error;
 use crate::chain_of_responsibility::IChainOfResponsibilityHandler;
 
 // The chain of responsibility list is a Chain of Responsibility Handler,
@@ -50,7 +51,7 @@ impl<'struct_lifetime, ObjectType> IChainOfResponsibilityHandler<ObjectType>
   fn handle(
     &self,
     object: &mut ObjectType
-  ) {
+  ) -> Result<(), Box<dyn Error>> {
     // Simply iterate through our list and execute each handler on
     // the input object
     // If one handler fails, an Exception will be thrown
@@ -64,7 +65,9 @@ impl<'struct_lifetime, ObjectType> IChainOfResponsibilityHandler<ObjectType>
       // deref our handler object
       handler.handle(
         object
-      );
+      )?;
     }
+
+    return Ok(());
   }
 }

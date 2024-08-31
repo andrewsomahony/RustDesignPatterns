@@ -1,3 +1,4 @@
+use std::error::Error;
 use crate::chain_of_responsibility::IChainOfResponsibilityHandler;
 use crate::tests::chain_of_responsibility::object_to_initialize::ObjectToInitialize;
 
@@ -22,9 +23,11 @@ impl IChainOfResponsibilityHandler<ObjectToInitialize> for AddressHandler {
   fn handle(
     &self,
     object: &mut ObjectToInitialize
-  ) {
+  ) -> Result<(), Box<dyn Error>> {
     // Give the object its own copy of the address vector
     object.address =
       self._address_to_use.clone();
+
+    return Ok(());
   }
 }

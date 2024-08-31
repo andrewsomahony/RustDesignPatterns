@@ -1,19 +1,23 @@
 // Test struct to work with our chain of responsibility handlers
 
+use std::error::Error;
 use crate::chain_of_responsibility::IChainOfResponsibilityHandler;
 use crate::chain_of_responsibility::list::ChainOfResponsibilityList;
 use crate::tests::chain_of_responsibility::address_handler::AddressHandler;
 use crate::tests::chain_of_responsibility::age_handler::AgeHandler;
+use crate::tests::chain_of_responsibility::error_on_purpose_handler::ErrorOnPurposeHandler;
 use crate::tests::chain_of_responsibility::name_handler::NameHandler;
 use crate::tests::chain_of_responsibility::object_to_initialize::ObjectToInitialize;
+use crate::tests::error::test_error::TestError;
 
 mod object_to_initialize;
 mod name_handler;
 mod address_handler;
 mod age_handler;
+mod error_on_purpose_handler;
 
 #[test]
-fn chain_of_responsibility_test() {
+fn chain_of_responsibility_success_test() {
   let name_to_use :String =
     String::from(
       "Tinus"
@@ -79,8 +83,16 @@ fn chain_of_responsibility_test() {
   // Execute our handlers on our mutable object by executing the
   // handler list
 
-  handler_list.handle(
-    &mut object_to_initialize
+  let handler_result =
+    handler_list.handle(
+      &mut object_to_initialize
+    );
+
+  // Make sure our handler executed successfully
+
+  assert_eq!(
+    handler_result.is_ok(),
+    true
   );
 
   assert_eq!(
@@ -107,4 +119,90 @@ fn chain_of_responsibility_test() {
       address_to_use[address_index]
     );
   }
+}
+
+#[test]
+fn chain_of_responsibility_fail_test() {
+  let error_message_to_use :String =
+    String::from(
+      "Not in Delmas"
+    );
+
+  let error_handler :Box<dyn IChainOfResponsibilityHandler<ObjectToInitialize>> =
+    Box::new(
+      ErrorOnPurposeHandler::new(
+        error_message_to_use.clone()
+      )
+    );
+
+  // Make a name handler
+
+  let name_handler =
+    Box::new(
+      NameHandler::new(
+        String::from(
+          "Doesn't matter"
+        )
+      )
+    );
+
+  // Make an age handler
+
+  let age_handler =
+    Box::new(
+      AgeHandler::new(
+        99999
+      )
+    );
+
+  let mut handler_list :ChainOfResponsibilityList<ObjectToInitialize> =
+    ChainOfResponsibilityList::new();
+
+  // Add our name handler
+  handler_list.add_handler(
+    name_handler
+  );
+  // Put an error handler after our name handler
+  handler_list.add_handler(
+    error_handler
+  );
+  // Put an age handler after our error handler.  We don't expect this
+  // to be executed
+  handler_list.add_handler(
+    age_handler
+  );
+
+  // Create our mutable object to initialize
+
+  let mut object_to_initialize :ObjectToInitialize =
+    ObjectToInitialize::new();
+
+  // Run our handler list
+
+  let result =
+    handler_list.handle(
+      &mut object_to_initialize
+    );
+
+  // Make sure our result is an error
+
+  assert_eq!(
+    result.is_ok(),
+    false
+  );
+
+  // Make sure our returned error is the correct type
+
+  let returned_error:Box<dyn Error> =
+    result.err().unwrap();
+
+  assert_eq!(
+    returned_error.is::<TestError>(),
+    true
+  );
+
+  assert_eq!(
+    returned_error.downcast_ref::<TestError>().unwrap().message,
+    error_message_to_use
+  );
 }
