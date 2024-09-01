@@ -10,7 +10,7 @@ pub(super) struct AddressHandler {
 }
 
 impl AddressHandler {
-  pub fn new(
+  pub(super) fn new(
     address_to_use :Vec<String>
   ) -> Self {
     Self {
