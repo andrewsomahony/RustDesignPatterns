@@ -7,7 +7,9 @@ use crate::chain_of_responsibility::IChainOfResponsibilityHandler;
 
 pub struct ChainOfResponsibilityList<'struct_lifetime, ObjectType> {
   // The trait has to live at least as long as the struct
-  _list :LinkedList<&'struct_lifetime dyn IChainOfResponsibilityHandler<'struct_lifetime, ObjectType>>,
+  _list
+    :LinkedList<Box<dyn IChainOfResponsibilityHandler<
+                          'struct_lifetime, ObjectType>+'struct_lifetime>>,
 }
 
 impl<'struct_lifetime, ObjectType> ChainOfResponsibilityList<'struct_lifetime, ObjectType> {
@@ -24,7 +26,7 @@ impl<'struct_lifetime, ObjectType> ChainOfResponsibilityList<'struct_lifetime, O
 
   pub fn add_handler(
     &mut self,
-    handler :&'struct_lifetime dyn IChainOfResponsibilityHandler<'struct_lifetime, ObjectType>
+    handler :Box<dyn IChainOfResponsibilityHandler<'struct_lifetime, ObjectType>+'struct_lifetime>
   ) {
     // Add the handler to our list
 

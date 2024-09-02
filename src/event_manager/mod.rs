@@ -10,7 +10,7 @@ pub trait IEventManager<'trait_lifetime, EventDataType> {
     &mut self,
     // The event manager takes ownership of the observer
     // object
-    observer :&'trait_lifetime mut dyn IObserver<'trait_lifetime, EventDataType>
+    observer :Box<dyn IObserver<'trait_lifetime, EventDataType>+'trait_lifetime>
   ) -> String;
 
   // Removes an observer with the given ID

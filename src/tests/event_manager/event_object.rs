@@ -2,13 +2,10 @@
 // will get a piece of data indicating which field to update, and will update
 // that field
 
-use uuid::Uuid;
-
 #[derive(Default)]
 pub(super) struct EventObject {
   pub(super) name :String,
-  pub(super) payment :u64,
-  pub(super) receipt_hash :Uuid
+  pub(super) payment :u64
 }
 
 // No need to implement as we have just derived from

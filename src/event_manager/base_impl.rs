@@ -6,8 +6,8 @@ use uuid::Uuid;
 use crate::event_manager::IEventManager;
 use crate::event_manager::observer::IObserver;
 
-pub struct BaseEventManagerImpl<'struct_lifetime, EventDataType> {
-  _observers :HashMap<String, &'struct_lifetime mut dyn IObserver<'struct_lifetime, EventDataType>>
+pub struct BaseEventManagerImpl<'manager_lifetime, EventDataType> {
+  _observers :HashMap<String, Box<dyn IObserver<'manager_lifetime, EventDataType>+'manager_lifetime>>
 }
 
 impl<EventDataType> BaseEventManagerImpl<'_, EventDataType> {
@@ -24,7 +24,7 @@ impl<'manager_lifetime, EventDataType>
   for BaseEventManagerImpl<'manager_lifetime, EventDataType> {
   fn add_observer(
     &mut self,
-    observer: &'manager_lifetime mut dyn IObserver<'manager_lifetime, EventDataType>
+    observer: Box<dyn IObserver<'manager_lifetime, EventDataType>+'manager_lifetime>
   ) -> String {
     // Allocate our observer key, use a UUID
 
