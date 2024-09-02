@@ -38,29 +38,23 @@ fn chain_of_responsibility_success_test() {
 
   // Allocate our name handler
 
-  let name_handler: Box<dyn IChainOfResponsibilityHandler<ObjectToInitialize>> =
-    Box::new(
-      NameHandler::new(
-        name_to_use.clone()
-      )
+  let name_handler =
+    NameHandler::new(
+      name_to_use.clone()
     );
 
   // Allocate our address handler
 
-  let address_handler :Box<dyn IChainOfResponsibilityHandler<ObjectToInitialize>> =
-    Box::new(
-      AddressHandler::new(
-        address_to_use.clone()
-      )
+  let address_handler =
+    AddressHandler::new(
+      address_to_use.clone()
     );
 
   // Allocate our age handler
 
-  let age_handler :Box<dyn IChainOfResponsibilityHandler<ObjectToInitialize>> =
-    Box::new(
-      AgeHandler::new(
-        age_to_use
-      )
+  let age_handler  =
+    AgeHandler::new(
+      age_to_use
     );
 
   // We can test both chaining lists as well as multiple handlers here,
@@ -70,10 +64,10 @@ fn chain_of_responsibility_success_test() {
     ChainOfResponsibilityList::new();
 
   first_list.add_handler(
-    age_handler
+    &age_handler
   );
   first_list.add_handler(
-    address_handler
+    &address_handler
   );
 
   // Create our handler list
@@ -84,7 +78,7 @@ fn chain_of_responsibility_success_test() {
   // Add our handlers to our handler list
 
   handler_list.add_handler(
-    name_handler
+    &name_handler
   );
   // Add and consume our first list that we made with the address handle
   handler_list.add_list(
@@ -139,31 +133,25 @@ fn chain_of_responsibility_fail_test() {
       "Not in Delmas"
     );
 
-  let error_handler :Box<dyn IChainOfResponsibilityHandler<ObjectToInitialize>> =
-    Box::new(
-      ErrorOnPurposeHandler::new(
-        error_message_to_use.clone()
-      )
+  let error_handler =
+    ErrorOnPurposeHandler::new(
+      error_message_to_use.clone()
     );
 
   // Make a name handler
 
   let name_handler =
-    Box::new(
-      NameHandler::new(
-        String::from(
-          "Doesn't matter"
-        )
+    NameHandler::new(
+      String::from(
+        "Doesn't matter"
       )
     );
 
   // Make an age handler
 
   let age_handler =
-    Box::new(
-      AgeHandler::new(
-        99999
-      )
+    AgeHandler::new(
+      99999
     );
 
   let mut handler_list :ChainOfResponsibilityList<ObjectToInitialize> =
@@ -171,16 +159,16 @@ fn chain_of_responsibility_fail_test() {
 
   // Add our name handler
   handler_list.add_handler(
-    name_handler
+    &name_handler
   );
   // Put an error handler after our name handler
   handler_list.add_handler(
-    error_handler
+    &error_handler
   );
   // Put an age handler after our error handler.  We don't expect this
   // to be executed
   handler_list.add_handler(
-    age_handler
+    &age_handler
   );
 
   // Create our mutable object to initialize
