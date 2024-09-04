@@ -5,3 +5,4 @@ mod chain_of_responsibility;
 mod command;
 mod event_manager;
 mod mediator;
+mod strategy;
