@@ -19,6 +19,8 @@ fn test_command() {
     AddCommand::new(
       1,
       2,
+      // Note: We can use a mutable reference here as the compiler
+      // has figured out that we aren't using it after we execute
       &mut result_storage
     );
 

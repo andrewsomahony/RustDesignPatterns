@@ -9,6 +9,7 @@ pub mod event_manager;
 // test exe
 #[cfg(test)]
 mod tests;
+mod mediator;
 
 
 
