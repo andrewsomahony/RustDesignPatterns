@@ -16,7 +16,7 @@ impl AgeHandler {
   }
 }
 
-impl IChainOfResponsibilityHandler<'_, ObjectToInitialize>
+impl IChainOfResponsibilityHandler<ObjectToInitialize>
   for AgeHandler {
   fn handle(
     &self,

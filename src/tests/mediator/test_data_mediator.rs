@@ -16,7 +16,7 @@ impl<'mediator_lifetime> TestDataMediator<'mediator_lifetime> {
   }
 }
 
-impl IMediator<'_, u64> for TestDataMediator<'_> {
+impl IMediator<u64> for TestDataMediator<'_> {
   fn execute(
     &mut self,
     data: u64

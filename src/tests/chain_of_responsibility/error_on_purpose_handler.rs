@@ -24,7 +24,7 @@ impl ErrorOnPurposeHandler {
 // Implementation of our ChainOfResponsibilityHandler for
 // our error on purpose handler
 
-impl<ObjectType> IChainOfResponsibilityHandler<'_, ObjectType>
+impl<ObjectType> IChainOfResponsibilityHandler<ObjectType>
   for ErrorOnPurposeHandler {
   fn handle(
     &self,

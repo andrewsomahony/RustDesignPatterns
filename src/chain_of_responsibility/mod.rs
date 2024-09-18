@@ -1,6 +1,6 @@
 use std::error::Error;
 
-pub trait IChainOfResponsibilityHandler<'struct_lifetime, ObjectType> {
+pub trait IChainOfResponsibilityHandler<ObjectType> {
   fn handle(
     &self,
     object :&mut ObjectType

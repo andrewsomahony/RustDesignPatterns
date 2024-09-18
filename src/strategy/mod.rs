@@ -5,7 +5,7 @@
 // Strategies can be generalized and functionality can be provided abstractly,
 // which makes them quite powerful
 
-pub trait IStrategy<'strategy_lifetime, InputValueType, OutputValueType> {
+pub trait IStrategy<InputValueType, OutputValueType> {
   fn execute(
     // The strategy can modify itself if it so pleases, such as
     // to execute a mediator or another design pattern

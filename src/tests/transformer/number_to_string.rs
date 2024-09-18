@@ -7,7 +7,7 @@ pub(super) struct NumberToStringTransformer {
   _input_object :u64
 }
 
-impl IBuilder<'_, String>
+impl IBuilder<String>
   for NumberToStringTransformer {
   fn build(
     &self
@@ -17,12 +17,12 @@ impl IBuilder<'_, String>
   }
 }
 
-impl<'transformer_lifetime> ITransformer<'transformer_lifetime, u64, String>
+impl ITransformer<u64, String>
   for NumberToStringTransformer {
   fn set_input_object(
-    &'transformer_lifetime mut self,
+    &mut self,
     input_object: u64
-  ) -> &mut impl ITransformer<'transformer_lifetime, u64, String> {
+  ) -> &mut impl ITransformer<u64, String> {
     // Set our input object
     self._input_object =
       input_object;

@@ -19,7 +19,7 @@ impl AddressHandler {
   }
 }
 
-impl IChainOfResponsibilityHandler<'_, ObjectToInitialize>
+impl IChainOfResponsibilityHandler<ObjectToInitialize>
   for AddressHandler {
   fn handle(
     &self,

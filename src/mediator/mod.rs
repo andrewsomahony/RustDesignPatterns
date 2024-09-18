@@ -4,7 +4,7 @@
 // and interfaces, where the caller doesn't have to know how
 // the data is actually processed, only that it has been processed
 
-pub trait IMediator<'mediator_lifetime, DataType> {
+pub trait IMediator<DataType> {
   fn execute(
     &mut self,
     data :DataType

@@ -29,7 +29,7 @@ impl<'struct_lifetime> AddCommand<'struct_lifetime> {
 
 // Implement the ICommand trait for our AddCommand struct
 
-impl ICommand<'_> for AddCommand<'_> {
+impl ICommand for AddCommand<'_> {
   fn execute(
     &mut self
   ) {

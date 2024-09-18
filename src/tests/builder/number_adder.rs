@@ -32,7 +32,7 @@ impl NumberAdder {
 
 // Implement the IBuilder trait for our NumberAdder
 
-impl IBuilder<'_, u64> for NumberAdder {
+impl IBuilder<u64> for NumberAdder {
   fn build(&self) -> u64 {
     // Simply add our 2 numbers together
     return self._value1 + self._value2;

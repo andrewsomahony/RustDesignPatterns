@@ -20,7 +20,7 @@ impl<'struct_lifetime> PaymentObserver<'struct_lifetime> {
   }
 }
 
-impl IObserver<'_, EventType>
+impl IObserver<EventType>
   for PaymentObserver<'_> {
   fn notify(
     &mut self,

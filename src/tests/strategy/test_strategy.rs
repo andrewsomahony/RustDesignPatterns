@@ -23,7 +23,7 @@ impl<'strategy_lifetime> TestStrategy<'strategy_lifetime> {
   }
 }
 
-impl IStrategy<'_, u64, bool> for TestStrategy<'_> {
+impl IStrategy<u64, bool> for TestStrategy<'_> {
   fn execute(
     &mut self,
     input_value: u64

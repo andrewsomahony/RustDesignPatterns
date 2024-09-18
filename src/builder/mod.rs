@@ -1,4 +1,4 @@
-pub trait IBuilder<'builder_lifetime, ObjectType> {
+pub trait IBuilder<ObjectType> {
   fn build(
     &self
   ) -> ObjectType;

@@ -18,7 +18,7 @@ impl NameHandler {
   }
 }
 
-impl IChainOfResponsibilityHandler<'_, ObjectToInitialize>
+impl IChainOfResponsibilityHandler<ObjectToInitialize>
   for NameHandler {
   fn handle(
     &self,

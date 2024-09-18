@@ -25,7 +25,7 @@ impl<'struct_lifetime> NameObserver<'struct_lifetime> {
   }
 }
 
-impl IObserver<'_, EventType>
+impl IObserver<EventType>
   for NameObserver<'_> {
   fn notify(
     &mut self,
