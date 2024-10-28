@@ -46,12 +46,12 @@ impl<'manager_lifetime, EventDataType>
 
   fn remove_observer(
     &mut self,
-    observer_id: String
+    observer_id: &str
   ) {
     // Remove the observer if it exists
 
     self._observers.remove(
-      &observer_id
+      observer_id
     );
   }
 
@@ -59,12 +59,12 @@ impl<'manager_lifetime, EventDataType>
     // Self has to be mutable as the observer within our hash map has to be mutable,
     // as the observer can be any class and has to be modifiable
     &mut self,
-    event_data: EventDataType
+    event_data: &EventDataType
   ) {
     // Notify all our observers with the event data
-    for (_key, value) in &mut self._observers {
-      value.notify(
-        &event_data
+    for (_observer_key, observer) in &mut self._observers {
+      observer.notify(
+        event_data
       );
     }
   }

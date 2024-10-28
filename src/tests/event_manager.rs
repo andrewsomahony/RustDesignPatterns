@@ -49,7 +49,7 @@ fn test_event_manager() {
   // Notify our customer's name
 
   event_manager.notify(
-    EventType::Name(
+    &EventType::Name(
       String::from("Andrew")
     )
   );
@@ -64,7 +64,7 @@ fn test_event_manager() {
   // Notify about our payment
 
   event_manager.notify(
-    EventType::Payment(
+    &EventType::Payment(
       100
     )
   );
@@ -77,10 +77,10 @@ fn test_event_manager() {
   );
 
   event_manager.remove_observer(
-    name_observer_id
+    &name_observer_id
   );
 
   event_manager.remove_observer(
-    payment_observer_id
+    &payment_observer_id
   );
 }
