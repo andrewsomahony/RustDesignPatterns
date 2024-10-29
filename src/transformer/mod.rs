@@ -17,5 +17,5 @@ pub trait ITransformer<InputObjectType, OutputObjectType>
     // We can return an impl instead of a box, as the compiler can figure out when
     // we return "self" what size to return, and can infer everything from there, as
     // self is obviously implementing ITransformer
-  ) -> &mut impl ITransformer<InputObjectType, OutputObjectType>;
+  ) -> &mut dyn ITransformer<InputObjectType, OutputObjectType>;
 }

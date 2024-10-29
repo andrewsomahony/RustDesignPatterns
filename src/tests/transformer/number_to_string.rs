@@ -22,7 +22,7 @@ impl ITransformer<u64, String>
   fn set_input_object(
     &mut self,
     input_object: u64
-  ) -> &mut impl ITransformer<u64, String> {
+  ) -> &mut dyn ITransformer<u64, String> {
     // Set our input object
     self._input_object =
       input_object;
